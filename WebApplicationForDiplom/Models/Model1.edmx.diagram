@@ -4,26 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="de6c127ea442471aabcebe31e5803201" Name="Diagram1" ZoomLevel="81">
-        <EntityTypeShape EntityType="diplomModel.Клиенты" Width="1.5" PointX="8.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="diplomModel.КодыИдентификацииОтходов" Width="1.5" PointX="10.5" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="diplomModel.Контейнеры" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="diplomModel.ОтходыПоКоду" Width="1.5" PointX="9.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="diplomModel.ПартииОтходов" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="diplomModel.ПеремещенияКонтейнераВНовоеПомещение" Width="1.5" PointX="5.375" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="diplomModel.ПеремещенияОтходовВНовыйКонтейнер" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="diplomModel.Полигоны" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="diplomModel.Помещения" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+      <Diagram DiagramId="7a744f985b224810b770d7fbe07deafe" Name="Diagram1">
+        <EntityTypeShape EntityType="diplomModel.Клиенты" Width="1.5" PointX="10.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="diplomModel.КодыИдентификацииОтходов" Width="1.5" PointX="8" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="diplomModel.Контейнеры" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="diplomModel.ОтходыПоКоду" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="diplomModel.ПартииОтходов" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="diplomModel.R_3" ManuallyRouted="false" />
         <AssociationConnector Association="diplomModel.R_5" ManuallyRouted="false" />
         <AssociationConnector Association="diplomModel.R_11" ManuallyRouted="false" />
-        <AssociationConnector Association="diplomModel.R_14" ManuallyRouted="false" />
-        <AssociationConnector Association="diplomModel.R_15" ManuallyRouted="false" />
-        <AssociationConnector Association="diplomModel.R_8" ManuallyRouted="false" />
         <AssociationConnector Association="diplomModel.R_9" ManuallyRouted="false" />
-        <AssociationConnector Association="diplomModel.R_13" ManuallyRouted="false" />
-        <AssociationConnector Association="diplomModel.R_16" ManuallyRouted="false" />
-        <AssociationConnector Association="diplomModel.R_7" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

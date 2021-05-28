@@ -16,7 +16,7 @@ namespace WebApplicationForDiplom.Controllers
     [Authorize(Roles = "Admin")]
     public class КонтейнерыController : ApiController
     {
-        private diplomEntities db = new diplomEntities();
+        private diplomEntities1 db = new diplomEntities1();
 
         // GET: api/Контейнеры
         public IQueryable<Контейнеры> GetКонтейнеры()

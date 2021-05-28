@@ -216,10 +216,6 @@
     <Compile Include="Controllers\КонтейнерыController.cs" />
     <Compile Include="Controllers\ОтходыПоКодуController.cs" />
     <Compile Include="Controllers\ПартииОтходовController.cs" />
-    <Compile Include="Controllers\ПеремещенияКонтейнераВНовоеПомещениеController.cs" />
-    <Compile Include="Controllers\ПеремещенияОтходовВНовыйКонтейнерController.cs" />
-    <Compile Include="Controllers\ПолигоныController.cs" />
-    <Compile Include="Controllers\ПомещенияController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -255,18 +251,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ПартииОтходов.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ПеремещенияКонтейнераВНовоеПомещение.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ПеремещенияОтходовВНовыйКонтейнер.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Полигоны.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Помещения.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

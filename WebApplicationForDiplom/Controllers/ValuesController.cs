@@ -13,7 +13,7 @@ namespace WebApplicationForDiplom.Controllers
     {
         // GET api/values
         //Создание_базы_данныхEntities db = new Создание_базы_данныхEntities();
-        diplomEntities db = new diplomEntities();
+        diplomEntities1 db = new diplomEntities1();
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };

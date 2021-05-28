@@ -18,8 +18,6 @@ namespace WebApplicationForDiplom.Models
         public Контейнеры()
         {
             this.ПартииОтходов = new HashSet<ПартииОтходов>();
-            this.ПеремещенияОтходовВНовыйКонтейнер = new HashSet<ПеремещенияОтходовВНовыйКонтейнер>();
-            this.ПеремещенияКонтейнераВНовоеПомещение = new HashSet<ПеремещенияКонтейнераВНовоеПомещение>();
         }
     
         public int IdКонтейнера { get; set; }
@@ -28,10 +26,5 @@ namespace WebApplicationForDiplom.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ПартииОтходов> ПартииОтходов { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ПеремещенияОтходовВНовыйКонтейнер> ПеремещенияОтходовВНовыйКонтейнер { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ПеремещенияКонтейнераВНовоеПомещение> ПеремещенияКонтейнераВНовоеПомещение { get; set; }
-        public virtual Помещения Помещения { get; set; }
     }
 }

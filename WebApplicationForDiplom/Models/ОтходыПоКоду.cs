@@ -17,9 +17,8 @@ namespace WebApplicationForDiplom.Models
         public int IdОтходовПоКоду { get; set; }
         public int Вес { get; set; }
         public System.DateTime Дата { get; set; }
-        public Nullable<int> IdАккаунта { get; set; }
-        public int IdКода { get; set; }
         public Nullable<int> IdПартииОтходов { get; set; }
+        public int IdКода { get; set; }
     
         public virtual КодыИдентификацииОтходов КодыИдентификацииОтходов { get; set; }
         public virtual ПартииОтходов ПартииОтходов { get; set; }

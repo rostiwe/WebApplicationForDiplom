@@ -16,7 +16,7 @@ namespace WebApplicationForDiplom.Controllers
     [Authorize(Roles = "Admin")]
     public class КлиентыController : ApiController
     {
-        private diplomEntities db = new diplomEntities();
+        private diplomEntities1 db = new diplomEntities1();
 
         // GET: api/Клиенты
         public IQueryable<Клиенты> GetКлиенты()

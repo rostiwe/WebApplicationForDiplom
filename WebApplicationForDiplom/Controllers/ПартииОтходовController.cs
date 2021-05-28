@@ -16,7 +16,7 @@ namespace WebApplicationForDiplom.Controllers
     [Authorize(Roles = "Admin, PoliMen")]
     public class ПартииОтходовController : ApiController
     {
-        private diplomEntities db = new diplomEntities();
+        private diplomEntities1 db = new diplomEntities1();
 
         // GET: api/ПартииОтходов
         public IQueryable<ПартииОтходов> GetПартииОтходов()

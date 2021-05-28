@@ -16,7 +16,7 @@ namespace WebApplicationForDiplom.Controllers
     [Authorize(Roles = "Admin")]
     public class КодыИдентификацииОтходовController : ApiController
     {
-        private diplomEntities db = new diplomEntities();
+        private diplomEntities1 db = new diplomEntities1();
 
         // GET: api/КодыИдентификацииОтходов
         public IQueryable<КодыИдентификацииОтходов> GetКодыИдентификацииОтходов()

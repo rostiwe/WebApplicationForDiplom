@@ -35,9 +35,8 @@
           <Property Name="IdОтходовПоКоду" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Вес" Type="int" Nullable="false" />
           <Property Name="Дата" Type="datetime" Nullable="false" />
-          <Property Name="IdАккаунта" Type="int" />
-          <Property Name="IdКода" Type="int" Nullable="false" />
           <Property Name="IdПартииОтходов" Type="int" />
+          <Property Name="IdКода" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ПартииОтходов">
           <Key>
@@ -48,39 +47,7 @@
           <Property Name="Вес" Type="int" />
           <Property Name="IdТипа" Type="int" Nullable="false" />
           <Property Name="IdКонтейнера" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ПеремещенияКонтейнераВНовоеПомещение">
-          <Key>
-            <PropertyRef Name="IdЗаписи" />
-          </Key>
-          <Property Name="IdКонтейнера" Type="int" Nullable="false" />
-          <Property Name="IdПомещения" Type="int" Nullable="false" />
-          <Property Name="Дата" Type="datetime" Nullable="false" />
-          <Property Name="IdЗаписи" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ПеремещенияОтходовВНовыйКонтейнер">
-          <Key>
-            <PropertyRef Name="IdЗаписи" />
-          </Key>
-          <Property Name="IdПартииОтходов" Type="int" Nullable="false" />
-          <Property Name="IdКонтейнера" Type="int" Nullable="false" />
-          <Property Name="Дата" Type="datetime" Nullable="false" />
-          <Property Name="IdЗаписи" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Полигоны">
-          <Key>
-            <PropertyRef Name="IdПолигона" />
-          </Key>
-          <Property Name="IdПолигона" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Адресс" Type="nvarchar" MaxLength="20" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Помещения">
-          <Key>
-            <PropertyRef Name="IdПомещения" />
-          </Key>
-          <Property Name="IdПомещения" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="НомерНаименование" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="IdПолигона" Type="int" Nullable="false" />
+          <Property Name="НомерПартии" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <Association Name="R_11">
           <End Role="Контейнеры" Type="Self.Контейнеры" Multiplicity="1" />
@@ -91,54 +58,6 @@
             </Principal>
             <Dependent Role="ПартииОтходов">
               <PropertyRef Name="IdКонтейнера" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_13">
-          <End Role="ПартииОтходов" Type="Self.ПартииОтходов" Multiplicity="1" />
-          <End Role="ПеремещенияОтходовВНовыйКонтейнер" Type="Self.ПеремещенияОтходовВНовыйКонтейнер" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ПартииОтходов">
-              <PropertyRef Name="IdПартииОтходов" />
-            </Principal>
-            <Dependent Role="ПеремещенияОтходовВНовыйКонтейнер">
-              <PropertyRef Name="IdПартииОтходов" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_14">
-          <End Role="Контейнеры" Type="Self.Контейнеры" Multiplicity="1" />
-          <End Role="ПеремещенияОтходовВНовыйКонтейнер" Type="Self.ПеремещенияОтходовВНовыйКонтейнер" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Контейнеры">
-              <PropertyRef Name="IdКонтейнера" />
-            </Principal>
-            <Dependent Role="ПеремещенияОтходовВНовыйКонтейнер">
-              <PropertyRef Name="IdКонтейнера" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_15">
-          <End Role="Контейнеры" Type="Self.Контейнеры" Multiplicity="1" />
-          <End Role="ПеремещенияКонтейнераВНовоеПомещение" Type="Self.ПеремещенияКонтейнераВНовоеПомещение" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Контейнеры">
-              <PropertyRef Name="IdКонтейнера" />
-            </Principal>
-            <Dependent Role="ПеремещенияКонтейнераВНовоеПомещение">
-              <PropertyRef Name="IdКонтейнера" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_16">
-          <End Role="Помещения" Type="Self.Помещения" Multiplicity="1" />
-          <End Role="ПеремещенияКонтейнераВНовоеПомещение" Type="Self.ПеремещенияКонтейнераВНовоеПомещение" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Помещения">
-              <PropertyRef Name="IdПомещения" />
-            </Principal>
-            <Dependent Role="ПеремещенияКонтейнераВНовоеПомещение">
-              <PropertyRef Name="IdПомещения" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -166,30 +85,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="R_7">
-          <End Role="Полигоны" Type="Self.Полигоны" Multiplicity="1" />
-          <End Role="Помещения" Type="Self.Помещения" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Полигоны">
-              <PropertyRef Name="IdПолигона" />
-            </Principal>
-            <Dependent Role="Помещения">
-              <PropertyRef Name="IdПолигона" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_8">
-          <End Role="Помещения" Type="Self.Помещения" Multiplicity="0..1" />
-          <End Role="Контейнеры" Type="Self.Контейнеры" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Помещения">
-              <PropertyRef Name="IdПомещения" />
-            </Principal>
-            <Dependent Role="Контейнеры">
-              <PropertyRef Name="IdПомещения" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="R_9">
           <End Role="ПартииОтходов" Type="Self.ПартииОтходов" Multiplicity="0..1" />
           <End Role="ОтходыПоКоду" Type="Self.ОтходыПоКоду" Multiplicity="*" />
@@ -208,29 +103,9 @@
           <EntitySet Name="Контейнеры" EntityType="Self.Контейнеры" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ОтходыПоКоду" EntityType="Self.ОтходыПоКоду" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ПартииОтходов" EntityType="Self.ПартииОтходов" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ПеремещенияКонтейнераВНовоеПомещение" EntityType="Self.ПеремещенияКонтейнераВНовоеПомещение" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ПеремещенияОтходовВНовыйКонтейнер" EntityType="Self.ПеремещенияОтходовВНовыйКонтейнер" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Полигоны" EntityType="Self.Полигоны" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Помещения" EntityType="Self.Помещения" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="R_11" Association="Self.R_11">
             <End Role="Контейнеры" EntitySet="Контейнеры" />
             <End Role="ПартииОтходов" EntitySet="ПартииОтходов" />
-          </AssociationSet>
-          <AssociationSet Name="R_13" Association="Self.R_13">
-            <End Role="ПартииОтходов" EntitySet="ПартииОтходов" />
-            <End Role="ПеремещенияОтходовВНовыйКонтейнер" EntitySet="ПеремещенияОтходовВНовыйКонтейнер" />
-          </AssociationSet>
-          <AssociationSet Name="R_14" Association="Self.R_14">
-            <End Role="Контейнеры" EntitySet="Контейнеры" />
-            <End Role="ПеремещенияОтходовВНовыйКонтейнер" EntitySet="ПеремещенияОтходовВНовыйКонтейнер" />
-          </AssociationSet>
-          <AssociationSet Name="R_15" Association="Self.R_15">
-            <End Role="Контейнеры" EntitySet="Контейнеры" />
-            <End Role="ПеремещенияКонтейнераВНовоеПомещение" EntitySet="ПеремещенияКонтейнераВНовоеПомещение" />
-          </AssociationSet>
-          <AssociationSet Name="R_16" Association="Self.R_16">
-            <End Role="Помещения" EntitySet="Помещения" />
-            <End Role="ПеремещенияКонтейнераВНовоеПомещение" EntitySet="ПеремещенияКонтейнераВНовоеПомещение" />
           </AssociationSet>
           <AssociationSet Name="R_3" Association="Self.R_3">
             <End Role="Клиенты" EntitySet="Клиенты" />
@@ -239,14 +114,6 @@
           <AssociationSet Name="R_5" Association="Self.R_5">
             <End Role="КодыИдентификацииОтходов" EntitySet="КодыИдентификацииОтходов" />
             <End Role="ОтходыПоКоду" EntitySet="ОтходыПоКоду" />
-          </AssociationSet>
-          <AssociationSet Name="R_7" Association="Self.R_7">
-            <End Role="Полигоны" EntitySet="Полигоны" />
-            <End Role="Помещения" EntitySet="Помещения" />
-          </AssociationSet>
-          <AssociationSet Name="R_8" Association="Self.R_8">
-            <End Role="Помещения" EntitySet="Помещения" />
-            <End Role="Контейнеры" EntitySet="Контейнеры" />
           </AssociationSet>
           <AssociationSet Name="R_9" Association="Self.R_9">
             <End Role="ПартииОтходов" EntitySet="ПартииОтходов" />
@@ -284,9 +151,6 @@
           <Property Name="Номер" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdПомещения" Type="Int32" />
           <NavigationProperty Name="ПартииОтходов" Relationship="Self.R_11" FromRole="Контейнеры" ToRole="ПартииОтходов" />
-          <NavigationProperty Name="ПеремещенияОтходовВНовыйКонтейнер" Relationship="Self.R_14" FromRole="Контейнеры" ToRole="ПеремещенияОтходовВНовыйКонтейнер" />
-          <NavigationProperty Name="ПеремещенияКонтейнераВНовоеПомещение" Relationship="Self.R_15" FromRole="Контейнеры" ToRole="ПеремещенияКонтейнераВНовоеПомещение" />
-          <NavigationProperty Name="Помещения" Relationship="Self.R_8" FromRole="Контейнеры" ToRole="Помещения" />
         </EntityType>
         <EntityType Name="ОтходыПоКоду">
           <Key>
@@ -295,9 +159,8 @@
           <Property Name="IdОтходовПоКоду" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Вес" Type="Int32" Nullable="false" />
           <Property Name="Дата" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IdАккаунта" Type="Int32" />
-          <Property Name="IdКода" Type="Int32" Nullable="false" />
           <Property Name="IdПартииОтходов" Type="Int32" />
+          <Property Name="IdКода" Type="Int32" Nullable="false" />
           <NavigationProperty Name="КодыИдентификацииОтходов" Relationship="Self.R_5" FromRole="ОтходыПоКоду" ToRole="КодыИдентификацииОтходов" />
           <NavigationProperty Name="ПартииОтходов" Relationship="Self.R_9" FromRole="ОтходыПоКоду" ToRole="ПартииОтходов" />
         </EntityType>
@@ -310,50 +173,9 @@
           <Property Name="Вес" Type="Int32" />
           <Property Name="IdТипа" Type="Int32" Nullable="false" />
           <Property Name="IdКонтейнера" Type="Int32" Nullable="false" />
+          <Property Name="НомерПартии" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Контейнеры" Relationship="Self.R_11" FromRole="ПартииОтходов" ToRole="Контейнеры" />
           <NavigationProperty Name="ОтходыПоКоду" Relationship="Self.R_9" FromRole="ПартииОтходов" ToRole="ОтходыПоКоду" />
-          <NavigationProperty Name="ПеремещенияОтходовВНовыйКонтейнер" Relationship="Self.R_13" FromRole="ПартииОтходов" ToRole="ПеремещенияОтходовВНовыйКонтейнер" />
-        </EntityType>
-        <EntityType Name="ПеремещенияКонтейнераВНовоеПомещение">
-          <Key>
-            <PropertyRef Name="IdЗаписи" />
-          </Key>
-          <Property Name="IdКонтейнера" Type="Int32" Nullable="false" />
-          <Property Name="IdПомещения" Type="Int32" Nullable="false" />
-          <Property Name="Дата" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IdЗаписи" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Контейнеры" Relationship="Self.R_15" FromRole="ПеремещенияКонтейнераВНовоеПомещение" ToRole="Контейнеры" />
-          <NavigationProperty Name="Помещения" Relationship="Self.R_16" FromRole="ПеремещенияКонтейнераВНовоеПомещение" ToRole="Помещения" />
-        </EntityType>
-        <EntityType Name="ПеремещенияОтходовВНовыйКонтейнер">
-          <Key>
-            <PropertyRef Name="IdЗаписи" />
-          </Key>
-          <Property Name="IdПартииОтходов" Type="Int32" Nullable="false" />
-          <Property Name="IdКонтейнера" Type="Int32" Nullable="false" />
-          <Property Name="Дата" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IdЗаписи" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Контейнеры" Relationship="Self.R_14" FromRole="ПеремещенияОтходовВНовыйКонтейнер" ToRole="Контейнеры" />
-          <NavigationProperty Name="ПартииОтходов" Relationship="Self.R_13" FromRole="ПеремещенияОтходовВНовыйКонтейнер" ToRole="ПартииОтходов" />
-        </EntityType>
-        <EntityType Name="Полигоны">
-          <Key>
-            <PropertyRef Name="IdПолигона" />
-          </Key>
-          <Property Name="IdПолигона" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Адресс" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Помещения" Relationship="Self.R_7" FromRole="Полигоны" ToRole="Помещения" />
-        </EntityType>
-        <EntityType Name="Помещения">
-          <Key>
-            <PropertyRef Name="IdПомещения" />
-          </Key>
-          <Property Name="IdПомещения" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="НомерНаименование" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdПолигона" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Контейнеры" Relationship="Self.R_8" FromRole="Помещения" ToRole="Контейнеры" />
-          <NavigationProperty Name="ПеремещенияКонтейнераВНовоеПомещение" Relationship="Self.R_16" FromRole="Помещения" ToRole="ПеремещенияКонтейнераВНовоеПомещение" />
-          <NavigationProperty Name="Полигоны" Relationship="Self.R_7" FromRole="Помещения" ToRole="Полигоны" />
         </EntityType>
         <Association Name="R_3">
           <End Role="Клиенты" Type="Self.Клиенты" Multiplicity="1" />
@@ -391,42 +213,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="R_14">
-          <End Role="Контейнеры" Type="Self.Контейнеры" Multiplicity="1" />
-          <End Role="ПеремещенияОтходовВНовыйКонтейнер" Type="Self.ПеремещенияОтходовВНовыйКонтейнер" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Контейнеры">
-              <PropertyRef Name="IdКонтейнера" />
-            </Principal>
-            <Dependent Role="ПеремещенияОтходовВНовыйКонтейнер">
-              <PropertyRef Name="IdКонтейнера" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_15">
-          <End Role="Контейнеры" Type="Self.Контейнеры" Multiplicity="1" />
-          <End Role="ПеремещенияКонтейнераВНовоеПомещение" Type="Self.ПеремещенияКонтейнераВНовоеПомещение" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Контейнеры">
-              <PropertyRef Name="IdКонтейнера" />
-            </Principal>
-            <Dependent Role="ПеремещенияКонтейнераВНовоеПомещение">
-              <PropertyRef Name="IdКонтейнера" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_8">
-          <End Role="Помещения" Type="Self.Помещения" Multiplicity="0..1" />
-          <End Role="Контейнеры" Type="Self.Контейнеры" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Помещения">
-              <PropertyRef Name="IdПомещения" />
-            </Principal>
-            <Dependent Role="Контейнеры">
-              <PropertyRef Name="IdПомещения" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="R_9">
           <End Role="ПартииОтходов" Type="Self.ПартииОтходов" Multiplicity="0..1" />
           <End Role="ОтходыПоКоду" Type="Self.ОтходыПоКоду" Multiplicity="*" />
@@ -439,52 +225,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="R_13">
-          <End Role="ПартииОтходов" Type="Self.ПартииОтходов" Multiplicity="1" />
-          <End Role="ПеремещенияОтходовВНовыйКонтейнер" Type="Self.ПеремещенияОтходовВНовыйКонтейнер" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ПартииОтходов">
-              <PropertyRef Name="IdПартииОтходов" />
-            </Principal>
-            <Dependent Role="ПеремещенияОтходовВНовыйКонтейнер">
-              <PropertyRef Name="IdПартииОтходов" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_16">
-          <End Role="Помещения" Type="Self.Помещения" Multiplicity="1" />
-          <End Role="ПеремещенияКонтейнераВНовоеПомещение" Type="Self.ПеремещенияКонтейнераВНовоеПомещение" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Помещения">
-              <PropertyRef Name="IdПомещения" />
-            </Principal>
-            <Dependent Role="ПеремещенияКонтейнераВНовоеПомещение">
-              <PropertyRef Name="IdПомещения" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_7">
-          <End Role="Полигоны" Type="Self.Полигоны" Multiplicity="1" />
-          <End Role="Помещения" Type="Self.Помещения" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Полигоны">
-              <PropertyRef Name="IdПолигона" />
-            </Principal>
-            <Dependent Role="Помещения">
-              <PropertyRef Name="IdПолигона" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="diplomEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="diplomEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Клиенты" EntityType="Self.Клиенты" />
           <EntitySet Name="КодыИдентификацииОтходов" EntityType="Self.КодыИдентификацииОтходов" />
           <EntitySet Name="Контейнеры" EntityType="Self.Контейнеры" />
           <EntitySet Name="ОтходыПоКоду" EntityType="Self.ОтходыПоКоду" />
           <EntitySet Name="ПартииОтходов" EntityType="Self.ПартииОтходов" />
-          <EntitySet Name="ПеремещенияКонтейнераВНовоеПомещение" EntityType="Self.ПеремещенияКонтейнераВНовоеПомещение" />
-          <EntitySet Name="ПеремещенияОтходовВНовыйКонтейнер" EntityType="Self.ПеремещенияОтходовВНовыйКонтейнер" />
-          <EntitySet Name="Полигоны" EntityType="Self.Полигоны" />
-          <EntitySet Name="Помещения" EntityType="Self.Помещения" />
           <AssociationSet Name="R_3" Association="Self.R_3">
             <End Role="Клиенты" EntitySet="Клиенты" />
             <End Role="КодыИдентификацииОтходов" EntitySet="КодыИдентификацииОтходов" />
@@ -497,33 +243,9 @@
             <End Role="Контейнеры" EntitySet="Контейнеры" />
             <End Role="ПартииОтходов" EntitySet="ПартииОтходов" />
           </AssociationSet>
-          <AssociationSet Name="R_14" Association="Self.R_14">
-            <End Role="Контейнеры" EntitySet="Контейнеры" />
-            <End Role="ПеремещенияОтходовВНовыйКонтейнер" EntitySet="ПеремещенияОтходовВНовыйКонтейнер" />
-          </AssociationSet>
-          <AssociationSet Name="R_15" Association="Self.R_15">
-            <End Role="Контейнеры" EntitySet="Контейнеры" />
-            <End Role="ПеремещенияКонтейнераВНовоеПомещение" EntitySet="ПеремещенияКонтейнераВНовоеПомещение" />
-          </AssociationSet>
-          <AssociationSet Name="R_8" Association="Self.R_8">
-            <End Role="Помещения" EntitySet="Помещения" />
-            <End Role="Контейнеры" EntitySet="Контейнеры" />
-          </AssociationSet>
           <AssociationSet Name="R_9" Association="Self.R_9">
             <End Role="ПартииОтходов" EntitySet="ПартииОтходов" />
             <End Role="ОтходыПоКоду" EntitySet="ОтходыПоКоду" />
-          </AssociationSet>
-          <AssociationSet Name="R_13" Association="Self.R_13">
-            <End Role="ПартииОтходов" EntitySet="ПартииОтходов" />
-            <End Role="ПеремещенияОтходовВНовыйКонтейнер" EntitySet="ПеремещенияОтходовВНовыйКонтейнер" />
-          </AssociationSet>
-          <AssociationSet Name="R_16" Association="Self.R_16">
-            <End Role="Помещения" EntitySet="Помещения" />
-            <End Role="ПеремещенияКонтейнераВНовоеПомещение" EntitySet="ПеремещенияКонтейнераВНовоеПомещение" />
-          </AssociationSet>
-          <AssociationSet Name="R_7" Association="Self.R_7">
-            <End Role="Полигоны" EntitySet="Полигоны" />
-            <End Role="Помещения" EntitySet="Помещения" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -531,7 +253,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище diplomModelContainer" CdmEntityContainer="diplomEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище diplomModelContainer" CdmEntityContainer="diplomEntities1">
           <EntitySetMapping Name="Клиенты">
             <EntityTypeMapping TypeName="diplomModel.Клиенты">
               <MappingFragment StoreEntitySet="Клиенты">
@@ -564,9 +286,8 @@
                 <ScalarProperty Name="IdОтходовПоКоду" ColumnName="IdОтходовПоКоду" />
                 <ScalarProperty Name="Вес" ColumnName="Вес" />
                 <ScalarProperty Name="Дата" ColumnName="Дата" />
-                <ScalarProperty Name="IdАккаунта" ColumnName="IdАккаунта" />
-                <ScalarProperty Name="IdКода" ColumnName="IdКода" />
                 <ScalarProperty Name="IdПартииОтходов" ColumnName="IdПартииОтходов" />
+                <ScalarProperty Name="IdКода" ColumnName="IdКода" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -578,43 +299,7 @@
                 <ScalarProperty Name="Вес" ColumnName="Вес" />
                 <ScalarProperty Name="IdТипа" ColumnName="IdТипа" />
                 <ScalarProperty Name="IdКонтейнера" ColumnName="IdКонтейнера" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ПеремещенияКонтейнераВНовоеПомещение">
-            <EntityTypeMapping TypeName="diplomModel.ПеремещенияКонтейнераВНовоеПомещение">
-              <MappingFragment StoreEntitySet="ПеремещенияКонтейнераВНовоеПомещение">
-                <ScalarProperty Name="IdКонтейнера" ColumnName="IdКонтейнера" />
-                <ScalarProperty Name="IdПомещения" ColumnName="IdПомещения" />
-                <ScalarProperty Name="Дата" ColumnName="Дата" />
-                <ScalarProperty Name="IdЗаписи" ColumnName="IdЗаписи" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ПеремещенияОтходовВНовыйКонтейнер">
-            <EntityTypeMapping TypeName="diplomModel.ПеремещенияОтходовВНовыйКонтейнер">
-              <MappingFragment StoreEntitySet="ПеремещенияОтходовВНовыйКонтейнер">
-                <ScalarProperty Name="IdПартииОтходов" ColumnName="IdПартииОтходов" />
-                <ScalarProperty Name="IdКонтейнера" ColumnName="IdКонтейнера" />
-                <ScalarProperty Name="Дата" ColumnName="Дата" />
-                <ScalarProperty Name="IdЗаписи" ColumnName="IdЗаписи" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Полигоны">
-            <EntityTypeMapping TypeName="diplomModel.Полигоны">
-              <MappingFragment StoreEntitySet="Полигоны">
-                <ScalarProperty Name="IdПолигона" ColumnName="IdПолигона" />
-                <ScalarProperty Name="Адресс" ColumnName="Адресс" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Помещения">
-            <EntityTypeMapping TypeName="diplomModel.Помещения">
-              <MappingFragment StoreEntitySet="Помещения">
-                <ScalarProperty Name="IdПомещения" ColumnName="IdПомещения" />
-                <ScalarProperty Name="НомерНаименование" ColumnName="НомерНаименование" />
-                <ScalarProperty Name="IdПолигона" ColumnName="IdПолигона" />
+                <ScalarProperty Name="НомерПартии" ColumnName="НомерПартии" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

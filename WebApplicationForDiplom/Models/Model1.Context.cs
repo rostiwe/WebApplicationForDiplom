@@ -13,10 +13,10 @@ namespace WebApplicationForDiplom.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class diplomEntities : DbContext
+    public partial class diplomEntities1 : DbContext
     {
-        public diplomEntities()
-            : base("name=diplomEntities")
+        public diplomEntities1()
+            : base("name=diplomEntities1")
         {
         }
     
@@ -30,9 +30,5 @@ namespace WebApplicationForDiplom.Models
         public virtual DbSet<Контейнеры> Контейнеры { get; set; }
         public virtual DbSet<ОтходыПоКоду> ОтходыПоКоду { get; set; }
         public virtual DbSet<ПартииОтходов> ПартииОтходов { get; set; }
-        public virtual DbSet<ПеремещенияКонтейнераВНовоеПомещение> ПеремещенияКонтейнераВНовоеПомещение { get; set; }
-        public virtual DbSet<ПеремещенияОтходовВНовыйКонтейнер> ПеремещенияОтходовВНовыйКонтейнер { get; set; }
-        public virtual DbSet<Полигоны> Полигоны { get; set; }
-        public virtual DbSet<Помещения> Помещения { get; set; }
     }
 }
