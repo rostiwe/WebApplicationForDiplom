@@ -13,10 +13,10 @@ namespace WebApplicationForDiplom.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class diplomEntities1 : DbContext
+    public partial class diplomEntities2 : DbContext
     {
-        public diplomEntities1()
-            : base("name=diplomEntities1")
+        public diplomEntities2()
+            : base("name=diplomEntities2")
         {
         }
     
@@ -25,10 +25,11 @@ namespace WebApplicationForDiplom.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Клиенты> Клиенты { get; set; }
-        public virtual DbSet<КодыИдентификацииОтходов> КодыИдентификацииОтходов { get; set; }
-        public virtual DbSet<Контейнеры> Контейнеры { get; set; }
-        public virtual DbSet<ОтходыПоКоду> ОтходыПоКоду { get; set; }
-        public virtual DbSet<ПартииОтходов> ПартииОтходов { get; set; }
+        public virtual DbSet<Изменения_состояний_партий> Изменения_состояний_партий { get; set; }
+        public virtual DbSet<Коды_отходов> Коды_отходов { get; set; }
+        public virtual DbSet<Контейнер> Контейнер { get; set; }
+        public virtual DbSet<Партии_отходов> Партии_отходов { get; set; }
+        public virtual DbSet<Собранные_отходы_клиентов> Собранные_отходы_клиентов { get; set; }
+        public virtual DbSet<Состояния_партии_отходов> Состояния_партии_отходов { get; set; }
     }
 }

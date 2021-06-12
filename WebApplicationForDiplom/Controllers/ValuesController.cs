@@ -8,46 +8,29 @@ using WebApplicationForDiplom.Models;
 
 namespace WebApplicationForDiplom.Controllers
 {
-    [Authorize(Roles = "Admin, PoliMen, ")]
+    [Authorize(Roles = "Admin, PoliMen, SborMen")]
     public class ValuesController : ApiController
     {
-        // GET api/values
         //Создание_базы_данныхEntities db = new Создание_базы_данныхEntities();
-        diplomEntities1 db = new diplomEntities1();
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
+        diplomEntities2 db = new diplomEntities2();
         // GET api/values/5
         public string Get(string str)
         {
             try
             {
-                КодыИдентификацииОтходов musorCods = db.КодыИдентификацииОтходов.Where(b => b.Код == str).First();
-                return musorCods.IdКода.ToString();
+                // Ищем запись с кодом, по коду
+                Коды_отходов musorCods = db.Коды_отходов.Where(b => b.Код == str).First();
+                int i = musorCods.Количество;
+                // Проверяем не превышино ли количетво записей
+                IQueryable<Собранные_отходы_клиентов> Sobr = db.Собранные_отходы_клиентов.Where(b => b.Id_Кода == musorCods.Id_Кода);
+                if (Sobr.Count() >= i)
+                    return "Код найден, но максимальное число записей уже сделанно!";
+                return musorCods.Id_Кода.ToString();
             }
             catch
             {
                 return "Такого кода нет";
             }         
-            //return db.КодыИдентификацииОтходов.Where(b => b.Код == str).Any().ToString();
-            //return "value";
-        }
-
-        // POST api/values
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
         }
     }
 }

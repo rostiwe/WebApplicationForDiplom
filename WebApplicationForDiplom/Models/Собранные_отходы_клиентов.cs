@@ -12,15 +12,13 @@ namespace WebApplicationForDiplom.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ОтходыПоКоду
+    public partial class Собранные_отходы_клиентов
     {
-        public int IdОтходовПоКоду { get; set; }
-        public int Вес { get; set; }
-        public System.DateTime Дата { get; set; }
-        public Nullable<int> IdПартииОтходов { get; set; }
-        public int IdКода { get; set; }
+        public int Id_Отходов_по_коду { get; set; }
+        public decimal Вес { get; set; }
+        public int Id_Кода { get; set; }
+        public int Id_Типа { get; set; }
     
-        public virtual КодыИдентификацииОтходов КодыИдентификацииОтходов { get; set; }
-        public virtual ПартииОтходов ПартииОтходов { get; set; }
+        public virtual Коды_отходов Коды_отходов { get; set; }
     }
 }

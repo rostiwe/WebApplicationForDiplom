@@ -12,23 +12,19 @@ namespace WebApplicationForDiplom.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ПартииОтходов
+    public partial class Контейнер
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ПартииОтходов()
+        public Контейнер()
         {
-            this.ОтходыПоКоду = new HashSet<ОтходыПоКоду>();
+            this.Партии_отходов = new HashSet<Партии_отходов>();
         }
     
-        public int IdПартииОтходов { get; set; }
-        public System.DateTime ДатаСоздания { get; set; }
-        public Nullable<int> Вес { get; set; }
-        public int IdТипа { get; set; }
-        public int IdКонтейнера { get; set; }
-        public string НомерПартии { get; set; }
+        public int Id_Контейнера { get; set; }
+        public int Id_Типа_Контейнеров { get; set; }
+        public string Номер_контейнера { get; set; }
     
-        public virtual Контейнеры Контейнеры { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ОтходыПоКоду> ОтходыПоКоду { get; set; }
+        public virtual ICollection<Партии_отходов> Партии_отходов { get; set; }
     }
 }

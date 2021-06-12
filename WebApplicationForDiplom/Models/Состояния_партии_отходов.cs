@@ -12,18 +12,18 @@ namespace WebApplicationForDiplom.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Клиенты
+    public partial class Состояния_партии_отходов
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Клиенты()
+        public Состояния_партии_отходов()
         {
-            this.КодыИдентификацииОтходов = new HashSet<КодыИдентификацииОтходов>();
+            this.Изменения_состояний_партий = new HashSet<Изменения_состояний_партий>();
         }
     
-        public int IdКлиента { get; set; }
-        public string НомерДоговора { get; set; }
+        public int Id_Состояния { get; set; }
+        public string Наименование { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<КодыИдентификацииОтходов> КодыИдентификацииОтходов { get; set; }
+        public virtual ICollection<Изменения_состояний_партий> Изменения_состояний_партий { get; set; }
     }
 }

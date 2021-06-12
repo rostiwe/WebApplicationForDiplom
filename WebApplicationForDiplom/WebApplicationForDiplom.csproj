@@ -208,14 +208,13 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Id_Контейнеров_Controller.cs" />
     <Compile Include="Controllers\PartiiController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Controllers\КлиентыController.cs" />
-    <Compile Include="Controllers\КодыИдентификацииОтходовController.cs" />
-    <Compile Include="Controllers\КонтейнерыController.cs" />
-    <Compile Include="Controllers\ОтходыПоКодуController.cs" />
-    <Compile Include="Controllers\ПартииОтходовController.cs" />
+    <Compile Include="Controllers\Изменения_состояний_партийController.cs" />
+    <Compile Include="Controllers\Партии_отходовController.cs" />
+    <Compile Include="Controllers\Собранные_отходы_клиентовController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -238,19 +237,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Клиенты.cs">
+    <Compile Include="Models\Изменения_состояний_партий.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\КодыИдентификацииОтходов.cs">
+    <Compile Include="Models\Коды_отходов.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Контейнеры.cs">
+    <Compile Include="Models\Контейнер.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ОтходыПоКоду.cs">
+    <Compile Include="Models\Партии_отходов.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ПартииОтходов.cs">
+    <Compile Include="Models\Собранные_отходы_клиентов.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Состояния_партии_отходов.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

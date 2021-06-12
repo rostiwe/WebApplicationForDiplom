@@ -8,21 +8,21 @@ using WebApplicationForDiplom.Models;
 
 namespace WebApplicationForDiplom.Controllers
 {
-    //Используется что бы найти id Партии по её номеру
     [Authorize(Roles = "Admin, PoliMen")]
-    public class PartiiController : ApiController
+    public class Id_Контейнеров_Controller : ApiController
     {
+        // Ищем Id контейнера по его номеру
         diplomEntities2 db = new diplomEntities2();
         public string Get(string str)
         {
             try
             {
-                Партии_отходов musorCods = db.Партии_отходов.Where(b => b.Номер_партии_отходов == str).First();
-                return musorCods.Id_партии_отходов.ToString();
+                Контейнер musorCods = db.Контейнер.Where(b => b.Номер_контейнера == str).First();
+                return musorCods.Id_Контейнера.ToString();
             }
             catch
             {
-                return "Такой партии нет!";
+                return "Контейнер не найден!";
             }
         }
     }

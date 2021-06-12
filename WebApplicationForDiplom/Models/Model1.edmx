@@ -5,119 +5,130 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище diplomModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Клиенты">
+        <EntityType Name="Изменения_состояний_партий">
           <Key>
-            <PropertyRef Name="IdКлиента" />
+            <PropertyRef Name="Id_Состояния" />
+            <PropertyRef Name="Id_партии_отходов" />
           </Key>
-          <Property Name="IdКлиента" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="НомерДоговора" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Дата_изменения" Type="datetime" Nullable="false" />
+          <Property Name="Id_Состояния" Type="int" Nullable="false" />
+          <Property Name="Id_партии_отходов" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="КодыИдентификацииОтходов">
+        <EntityType Name="Коды_отходов">
           <Key>
-            <PropertyRef Name="IdКода" />
+            <PropertyRef Name="Id_Кода" />
           </Key>
-          <Property Name="IdКода" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Код" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="IdКлиента" Type="int" Nullable="false" />
+          <Property Name="Id_Кода" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Код" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Количество" Type="int" Nullable="false" />
+          <Property Name="Id_клиента" Type="int" Nullable="false" />
+          <Property Name="Дата_создания" Type="date" />
         </EntityType>
-        <EntityType Name="Контейнеры">
+        <EntityType Name="Контейнер">
           <Key>
-            <PropertyRef Name="IdКонтейнера" />
+            <PropertyRef Name="Id_Контейнера" />
           </Key>
-          <Property Name="IdКонтейнера" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Номер" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="IdПомещения" Type="int" />
+          <Property Name="Id_Контейнера" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Типа_Контейнеров" Type="int" Nullable="false" />
+          <Property Name="Номер_контейнера" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="ОтходыПоКоду">
+        <EntityType Name="Партии_отходов">
           <Key>
-            <PropertyRef Name="IdОтходовПоКоду" />
+            <PropertyRef Name="Id_партии_отходов" />
           </Key>
-          <Property Name="IdОтходовПоКоду" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Вес" Type="int" Nullable="false" />
-          <Property Name="Дата" Type="datetime" Nullable="false" />
-          <Property Name="IdПартииОтходов" Type="int" />
-          <Property Name="IdКода" Type="int" Nullable="false" />
+          <Property Name="Id_партии_отходов" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Номер_партии_отходов" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="дата_формирования" Type="date" Nullable="false" />
+          <Property Name="Вес" Type="decimal" Precision="8" Scale="3" />
+          <Property Name="Id_Типа" Type="int" Nullable="false" />
+          <Property Name="Id_Контейнера" Type="int" />
         </EntityType>
-        <EntityType Name="ПартииОтходов">
+        <EntityType Name="Собранные_отходы_клиентов">
           <Key>
-            <PropertyRef Name="IdПартииОтходов" />
+            <PropertyRef Name="Id_Отходов_по_коду" />
           </Key>
-          <Property Name="IdПартииОтходов" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ДатаСоздания" Type="datetime" Nullable="false" />
-          <Property Name="Вес" Type="int" />
-          <Property Name="IdТипа" Type="int" Nullable="false" />
-          <Property Name="IdКонтейнера" Type="int" Nullable="false" />
-          <Property Name="НомерПартии" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Id_Отходов_по_коду" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Вес" Type="decimal" Precision="6" Scale="3" Nullable="false" />
+          <Property Name="Id_Кода" Type="int" Nullable="false" />
+          <Property Name="Id_Типа" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="R_11">
-          <End Role="Контейнеры" Type="Self.Контейнеры" Multiplicity="1" />
-          <End Role="ПартииОтходов" Type="Self.ПартииОтходов" Multiplicity="*" />
+        <EntityType Name="Состояния_партии_отходов">
+          <Key>
+            <PropertyRef Name="Id_Состояния" />
+          </Key>
+          <Property Name="Id_Состояния" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Наименование" Type="nvarchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <Association Name="R_12">
+          <End Role="Контейнер" Type="Self.Контейнер" Multiplicity="0..1" />
+          <End Role="Партии_отходов" Type="Self.Партии_отходов" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Контейнеры">
-              <PropertyRef Name="IdКонтейнера" />
+            <Principal Role="Контейнер">
+              <PropertyRef Name="Id_Контейнера" />
             </Principal>
-            <Dependent Role="ПартииОтходов">
-              <PropertyRef Name="IdКонтейнера" />
+            <Dependent Role="Партии_отходов">
+              <PropertyRef Name="Id_Контейнера" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="R_3">
-          <End Role="Клиенты" Type="Self.Клиенты" Multiplicity="1" />
-          <End Role="КодыИдентификацииОтходов" Type="Self.КодыИдентификацииОтходов" Multiplicity="*" />
+        <Association Name="R_2">
+          <End Role="Коды_отходов" Type="Self.Коды_отходов" Multiplicity="1" />
+          <End Role="Собранные_отходы_клиентов" Type="Self.Собранные_отходы_клиентов" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Клиенты">
-              <PropertyRef Name="IdКлиента" />
+            <Principal Role="Коды_отходов">
+              <PropertyRef Name="Id_Кода" />
             </Principal>
-            <Dependent Role="КодыИдентификацииОтходов">
-              <PropertyRef Name="IdКлиента" />
+            <Dependent Role="Собранные_отходы_клиентов">
+              <PropertyRef Name="Id_Кода" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_4">
+          <End Role="Состояния_партии_отходов" Type="Self.Состояния_партии_отходов" Multiplicity="1" />
+          <End Role="Изменения_состояний_партий" Type="Self.Изменения_состояний_партий" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Состояния_партии_отходов">
+              <PropertyRef Name="Id_Состояния" />
+            </Principal>
+            <Dependent Role="Изменения_состояний_партий">
+              <PropertyRef Name="Id_Состояния" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_5">
-          <End Role="КодыИдентификацииОтходов" Type="Self.КодыИдентификацииОтходов" Multiplicity="1" />
-          <End Role="ОтходыПоКоду" Type="Self.ОтходыПоКоду" Multiplicity="*" />
+          <End Role="Партии_отходов" Type="Self.Партии_отходов" Multiplicity="1" />
+          <End Role="Изменения_состояний_партий" Type="Self.Изменения_состояний_партий" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="КодыИдентификацииОтходов">
-              <PropertyRef Name="IdКода" />
+            <Principal Role="Партии_отходов">
+              <PropertyRef Name="Id_партии_отходов" />
             </Principal>
-            <Dependent Role="ОтходыПоКоду">
-              <PropertyRef Name="IdКода" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_9">
-          <End Role="ПартииОтходов" Type="Self.ПартииОтходов" Multiplicity="0..1" />
-          <End Role="ОтходыПоКоду" Type="Self.ОтходыПоКоду" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ПартииОтходов">
-              <PropertyRef Name="IdПартииОтходов" />
-            </Principal>
-            <Dependent Role="ОтходыПоКоду">
-              <PropertyRef Name="IdПартииОтходов" />
+            <Dependent Role="Изменения_состояний_партий">
+              <PropertyRef Name="Id_партии_отходов" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище diplomModelContainer">
-          <EntitySet Name="Клиенты" EntityType="Self.Клиенты" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="КодыИдентификацииОтходов" EntityType="Self.КодыИдентификацииОтходов" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Контейнеры" EntityType="Self.Контейнеры" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ОтходыПоКоду" EntityType="Self.ОтходыПоКоду" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ПартииОтходов" EntityType="Self.ПартииОтходов" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="R_11" Association="Self.R_11">
-            <End Role="Контейнеры" EntitySet="Контейнеры" />
-            <End Role="ПартииОтходов" EntitySet="ПартииОтходов" />
+          <EntitySet Name="Изменения_состояний_партий" EntityType="Self.Изменения_состояний_партий" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Коды_отходов" EntityType="Self.Коды_отходов" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Контейнер" EntityType="Self.Контейнер" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Партии_отходов" EntityType="Self.Партии_отходов" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Собранные_отходы_клиентов" EntityType="Self.Собранные_отходы_клиентов" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Состояния_партии_отходов" EntityType="Self.Состояния_партии_отходов" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="R_12" Association="Self.R_12">
+            <End Role="Контейнер" EntitySet="Контейнер" />
+            <End Role="Партии_отходов" EntitySet="Партии_отходов" />
           </AssociationSet>
-          <AssociationSet Name="R_3" Association="Self.R_3">
-            <End Role="Клиенты" EntitySet="Клиенты" />
-            <End Role="КодыИдентификацииОтходов" EntitySet="КодыИдентификацииОтходов" />
+          <AssociationSet Name="R_2" Association="Self.R_2">
+            <End Role="Коды_отходов" EntitySet="Коды_отходов" />
+            <End Role="Собранные_отходы_клиентов" EntitySet="Собранные_отходы_клиентов" />
+          </AssociationSet>
+          <AssociationSet Name="R_4" Association="Self.R_4">
+            <End Role="Состояния_партии_отходов" EntitySet="Состояния_партии_отходов" />
+            <End Role="Изменения_состояний_партий" EntitySet="Изменения_состояний_партий" />
           </AssociationSet>
           <AssociationSet Name="R_5" Association="Self.R_5">
-            <End Role="КодыИдентификацииОтходов" EntitySet="КодыИдентификацииОтходов" />
-            <End Role="ОтходыПоКоду" EntitySet="ОтходыПоКоду" />
-          </AssociationSet>
-          <AssociationSet Name="R_9" Association="Self.R_9">
-            <End Role="ПартииОтходов" EntitySet="ПартииОтходов" />
-            <End Role="ОтходыПоКоду" EntitySet="ОтходыПоКоду" />
+            <End Role="Партии_отходов" EntitySet="Партии_отходов" />
+            <End Role="Изменения_состояний_партий" EntitySet="Изменения_состояний_партий" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -125,127 +136,138 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="diplomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Клиенты">
+        <EntityType Name="Изменения_состояний_партий">
           <Key>
-            <PropertyRef Name="IdКлиента" />
+            <PropertyRef Name="Id_Состояния" />
+            <PropertyRef Name="Id_партии_отходов" />
           </Key>
-          <Property Name="IdКлиента" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="НомерДоговора" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="КодыИдентификацииОтходов" Relationship="Self.R_3" FromRole="Клиенты" ToRole="КодыИдентификацииОтходов" />
+          <Property Name="Дата_изменения" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Id_Состояния" Type="Int32" Nullable="false" />
+          <Property Name="Id_партии_отходов" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Состояния_партии_отходов" Relationship="Self.R_4" FromRole="Изменения_состояний_партий" ToRole="Состояния_партии_отходов" />
+          <NavigationProperty Name="Партии_отходов" Relationship="Self.R_5" FromRole="Изменения_состояний_партий" ToRole="Партии_отходов" />
         </EntityType>
-        <EntityType Name="КодыИдентификацииОтходов">
+        <EntityType Name="Коды_отходов">
           <Key>
-            <PropertyRef Name="IdКода" />
+            <PropertyRef Name="Id_Кода" />
           </Key>
-          <Property Name="IdКода" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Код" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdКлиента" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Клиенты" Relationship="Self.R_3" FromRole="КодыИдентификацииОтходов" ToRole="Клиенты" />
-          <NavigationProperty Name="ОтходыПоКоду" Relationship="Self.R_5" FromRole="КодыИдентификацииОтходов" ToRole="ОтходыПоКоду" />
+          <Property Name="Id_Кода" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Код" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Количество" Type="Int32" Nullable="false" />
+          <Property Name="Id_клиента" Type="Int32" Nullable="false" />
+          <Property Name="Дата_создания" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Собранные_отходы_клиентов" Relationship="Self.R_2" FromRole="Коды_отходов" ToRole="Собранные_отходы_клиентов" />
         </EntityType>
-        <EntityType Name="Контейнеры">
+        <EntityType Name="Контейнер">
           <Key>
-            <PropertyRef Name="IdКонтейнера" />
+            <PropertyRef Name="Id_Контейнера" />
           </Key>
-          <Property Name="IdКонтейнера" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Номер" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdПомещения" Type="Int32" />
-          <NavigationProperty Name="ПартииОтходов" Relationship="Self.R_11" FromRole="Контейнеры" ToRole="ПартииОтходов" />
+          <Property Name="Id_Контейнера" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Типа_Контейнеров" Type="Int32" Nullable="false" />
+          <Property Name="Номер_контейнера" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Партии_отходов" Relationship="Self.R_12" FromRole="Контейнер" ToRole="Партии_отходов" />
         </EntityType>
-        <EntityType Name="ОтходыПоКоду">
+        <EntityType Name="Партии_отходов">
           <Key>
-            <PropertyRef Name="IdОтходовПоКоду" />
+            <PropertyRef Name="Id_партии_отходов" />
           </Key>
-          <Property Name="IdОтходовПоКоду" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Вес" Type="Int32" Nullable="false" />
-          <Property Name="Дата" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IdПартииОтходов" Type="Int32" />
-          <Property Name="IdКода" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="КодыИдентификацииОтходов" Relationship="Self.R_5" FromRole="ОтходыПоКоду" ToRole="КодыИдентификацииОтходов" />
-          <NavigationProperty Name="ПартииОтходов" Relationship="Self.R_9" FromRole="ОтходыПоКоду" ToRole="ПартииОтходов" />
+          <Property Name="Id_партии_отходов" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Номер_партии_отходов" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="дата_формирования" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Вес" Type="Decimal" Precision="8" Scale="3" />
+          <Property Name="Id_Типа" Type="Int32" Nullable="false" />
+          <Property Name="Id_Контейнера" Type="Int32" />
+          <NavigationProperty Name="Изменения_состояний_партий" Relationship="Self.R_5" FromRole="Партии_отходов" ToRole="Изменения_состояний_партий" />
+          <NavigationProperty Name="Контейнер" Relationship="Self.R_12" FromRole="Партии_отходов" ToRole="Контейнер" />
         </EntityType>
-        <EntityType Name="ПартииОтходов">
+        <EntityType Name="Собранные_отходы_клиентов">
           <Key>
-            <PropertyRef Name="IdПартииОтходов" />
+            <PropertyRef Name="Id_Отходов_по_коду" />
           </Key>
-          <Property Name="IdПартииОтходов" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ДатаСоздания" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Вес" Type="Int32" />
-          <Property Name="IdТипа" Type="Int32" Nullable="false" />
-          <Property Name="IdКонтейнера" Type="Int32" Nullable="false" />
-          <Property Name="НомерПартии" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Контейнеры" Relationship="Self.R_11" FromRole="ПартииОтходов" ToRole="Контейнеры" />
-          <NavigationProperty Name="ОтходыПоКоду" Relationship="Self.R_9" FromRole="ПартииОтходов" ToRole="ОтходыПоКоду" />
+          <Property Name="Id_Отходов_по_коду" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Вес" Type="Decimal" Precision="6" Scale="3" Nullable="false" />
+          <Property Name="Id_Кода" Type="Int32" Nullable="false" />
+          <Property Name="Id_Типа" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Коды_отходов" Relationship="Self.R_2" FromRole="Собранные_отходы_клиентов" ToRole="Коды_отходов" />
         </EntityType>
-        <Association Name="R_3">
-          <End Role="Клиенты" Type="Self.Клиенты" Multiplicity="1" />
-          <End Role="КодыИдентификацииОтходов" Type="Self.КодыИдентификацииОтходов" Multiplicity="*" />
+        <EntityType Name="Состояния_партии_отходов">
+          <Key>
+            <PropertyRef Name="Id_Состояния" />
+          </Key>
+          <Property Name="Id_Состояния" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Наименование" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Изменения_состояний_партий" Relationship="Self.R_4" FromRole="Состояния_партии_отходов" ToRole="Изменения_состояний_партий" />
+        </EntityType>
+        <Association Name="R_4">
+          <End Role="Состояния_партии_отходов" Type="Self.Состояния_партии_отходов" Multiplicity="1" />
+          <End Role="Изменения_состояний_партий" Type="Self.Изменения_состояний_партий" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Клиенты">
-              <PropertyRef Name="IdКлиента" />
+            <Principal Role="Состояния_партии_отходов">
+              <PropertyRef Name="Id_Состояния" />
             </Principal>
-            <Dependent Role="КодыИдентификацииОтходов">
-              <PropertyRef Name="IdКлиента" />
+            <Dependent Role="Изменения_состояний_партий">
+              <PropertyRef Name="Id_Состояния" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_5">
-          <End Role="КодыИдентификацииОтходов" Type="Self.КодыИдентификацииОтходов" Multiplicity="1" />
-          <End Role="ОтходыПоКоду" Type="Self.ОтходыПоКоду" Multiplicity="*" />
+          <End Role="Партии_отходов" Type="Self.Партии_отходов" Multiplicity="1" />
+          <End Role="Изменения_состояний_партий" Type="Self.Изменения_состояний_партий" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="КодыИдентификацииОтходов">
-              <PropertyRef Name="IdКода" />
+            <Principal Role="Партии_отходов">
+              <PropertyRef Name="Id_партии_отходов" />
             </Principal>
-            <Dependent Role="ОтходыПоКоду">
-              <PropertyRef Name="IdКода" />
+            <Dependent Role="Изменения_состояний_партий">
+              <PropertyRef Name="Id_партии_отходов" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="R_11">
-          <End Role="Контейнеры" Type="Self.Контейнеры" Multiplicity="1" />
-          <End Role="ПартииОтходов" Type="Self.ПартииОтходов" Multiplicity="*" />
+        <Association Name="R_2">
+          <End Role="Коды_отходов" Type="Self.Коды_отходов" Multiplicity="1" />
+          <End Role="Собранные_отходы_клиентов" Type="Self.Собранные_отходы_клиентов" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Контейнеры">
-              <PropertyRef Name="IdКонтейнера" />
+            <Principal Role="Коды_отходов">
+              <PropertyRef Name="Id_Кода" />
             </Principal>
-            <Dependent Role="ПартииОтходов">
-              <PropertyRef Name="IdКонтейнера" />
+            <Dependent Role="Собранные_отходы_клиентов">
+              <PropertyRef Name="Id_Кода" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="R_9">
-          <End Role="ПартииОтходов" Type="Self.ПартииОтходов" Multiplicity="0..1" />
-          <End Role="ОтходыПоКоду" Type="Self.ОтходыПоКоду" Multiplicity="*" />
+        <Association Name="R_12">
+          <End Role="Контейнер" Type="Self.Контейнер" Multiplicity="0..1" />
+          <End Role="Партии_отходов" Type="Self.Партии_отходов" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ПартииОтходов">
-              <PropertyRef Name="IdПартииОтходов" />
+            <Principal Role="Контейнер">
+              <PropertyRef Name="Id_Контейнера" />
             </Principal>
-            <Dependent Role="ОтходыПоКоду">
-              <PropertyRef Name="IdПартииОтходов" />
+            <Dependent Role="Партии_отходов">
+              <PropertyRef Name="Id_Контейнера" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="diplomEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Клиенты" EntityType="Self.Клиенты" />
-          <EntitySet Name="КодыИдентификацииОтходов" EntityType="Self.КодыИдентификацииОтходов" />
-          <EntitySet Name="Контейнеры" EntityType="Self.Контейнеры" />
-          <EntitySet Name="ОтходыПоКоду" EntityType="Self.ОтходыПоКоду" />
-          <EntitySet Name="ПартииОтходов" EntityType="Self.ПартииОтходов" />
-          <AssociationSet Name="R_3" Association="Self.R_3">
-            <End Role="Клиенты" EntitySet="Клиенты" />
-            <End Role="КодыИдентификацииОтходов" EntitySet="КодыИдентификацииОтходов" />
+        <EntityContainer Name="diplomEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Изменения_состояний_партий" EntityType="Self.Изменения_состояний_партий" />
+          <EntitySet Name="Коды_отходов" EntityType="Self.Коды_отходов" />
+          <EntitySet Name="Контейнер" EntityType="Self.Контейнер" />
+          <EntitySet Name="Партии_отходов" EntityType="Self.Партии_отходов" />
+          <EntitySet Name="Собранные_отходы_клиентов" EntityType="Self.Собранные_отходы_клиентов" />
+          <EntitySet Name="Состояния_партии_отходов" EntityType="Self.Состояния_партии_отходов" />
+          <AssociationSet Name="R_4" Association="Self.R_4">
+            <End Role="Состояния_партии_отходов" EntitySet="Состояния_партии_отходов" />
+            <End Role="Изменения_состояний_партий" EntitySet="Изменения_состояний_партий" />
           </AssociationSet>
           <AssociationSet Name="R_5" Association="Self.R_5">
-            <End Role="КодыИдентификацииОтходов" EntitySet="КодыИдентификацииОтходов" />
-            <End Role="ОтходыПоКоду" EntitySet="ОтходыПоКоду" />
+            <End Role="Партии_отходов" EntitySet="Партии_отходов" />
+            <End Role="Изменения_состояний_партий" EntitySet="Изменения_состояний_партий" />
           </AssociationSet>
-          <AssociationSet Name="R_11" Association="Self.R_11">
-            <End Role="Контейнеры" EntitySet="Контейнеры" />
-            <End Role="ПартииОтходов" EntitySet="ПартииОтходов" />
+          <AssociationSet Name="R_2" Association="Self.R_2">
+            <End Role="Коды_отходов" EntitySet="Коды_отходов" />
+            <End Role="Собранные_отходы_клиентов" EntitySet="Собранные_отходы_клиентов" />
           </AssociationSet>
-          <AssociationSet Name="R_9" Association="Self.R_9">
-            <End Role="ПартииОтходов" EntitySet="ПартииОтходов" />
-            <End Role="ОтходыПоКоду" EntitySet="ОтходыПоКоду" />
+          <AssociationSet Name="R_12" Association="Self.R_12">
+            <End Role="Контейнер" EntitySet="Контейнер" />
+            <End Role="Партии_отходов" EntitySet="Партии_отходов" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -253,53 +275,63 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище diplomModelContainer" CdmEntityContainer="diplomEntities1">
-          <EntitySetMapping Name="Клиенты">
-            <EntityTypeMapping TypeName="diplomModel.Клиенты">
-              <MappingFragment StoreEntitySet="Клиенты">
-                <ScalarProperty Name="IdКлиента" ColumnName="IdКлиента" />
-                <ScalarProperty Name="НомерДоговора" ColumnName="НомерДоговора" />
+        <EntityContainerMapping StorageEntityContainer="Хранилище diplomModelContainer" CdmEntityContainer="diplomEntities2">
+          <EntitySetMapping Name="Изменения_состояний_партий">
+            <EntityTypeMapping TypeName="diplomModel.Изменения_состояний_партий">
+              <MappingFragment StoreEntitySet="Изменения_состояний_партий">
+                <ScalarProperty Name="Дата_изменения" ColumnName="Дата_изменения" />
+                <ScalarProperty Name="Id_Состояния" ColumnName="Id_Состояния" />
+                <ScalarProperty Name="Id_партии_отходов" ColumnName="Id_партии_отходов" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="КодыИдентификацииОтходов">
-            <EntityTypeMapping TypeName="diplomModel.КодыИдентификацииОтходов">
-              <MappingFragment StoreEntitySet="КодыИдентификацииОтходов">
-                <ScalarProperty Name="IdКода" ColumnName="IdКода" />
+          <EntitySetMapping Name="Коды_отходов">
+            <EntityTypeMapping TypeName="diplomModel.Коды_отходов">
+              <MappingFragment StoreEntitySet="Коды_отходов">
+                <ScalarProperty Name="Id_Кода" ColumnName="Id_Кода" />
                 <ScalarProperty Name="Код" ColumnName="Код" />
-                <ScalarProperty Name="IdКлиента" ColumnName="IdКлиента" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="Id_клиента" ColumnName="Id_клиента" />
+                <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Контейнеры">
-            <EntityTypeMapping TypeName="diplomModel.Контейнеры">
-              <MappingFragment StoreEntitySet="Контейнеры">
-                <ScalarProperty Name="IdКонтейнера" ColumnName="IdКонтейнера" />
-                <ScalarProperty Name="Номер" ColumnName="Номер" />
-                <ScalarProperty Name="IdПомещения" ColumnName="IdПомещения" />
+          <EntitySetMapping Name="Контейнер">
+            <EntityTypeMapping TypeName="diplomModel.Контейнер">
+              <MappingFragment StoreEntitySet="Контейнер">
+                <ScalarProperty Name="Id_Контейнера" ColumnName="Id_Контейнера" />
+                <ScalarProperty Name="Id_Типа_Контейнеров" ColumnName="Id_Типа_Контейнеров" />
+                <ScalarProperty Name="Номер_контейнера" ColumnName="Номер_контейнера" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ОтходыПоКоду">
-            <EntityTypeMapping TypeName="diplomModel.ОтходыПоКоду">
-              <MappingFragment StoreEntitySet="ОтходыПоКоду">
-                <ScalarProperty Name="IdОтходовПоКоду" ColumnName="IdОтходовПоКоду" />
+          <EntitySetMapping Name="Партии_отходов">
+            <EntityTypeMapping TypeName="diplomModel.Партии_отходов">
+              <MappingFragment StoreEntitySet="Партии_отходов">
+                <ScalarProperty Name="Id_партии_отходов" ColumnName="Id_партии_отходов" />
+                <ScalarProperty Name="Номер_партии_отходов" ColumnName="Номер_партии_отходов" />
+                <ScalarProperty Name="дата_формирования" ColumnName="дата_формирования" />
                 <ScalarProperty Name="Вес" ColumnName="Вес" />
-                <ScalarProperty Name="Дата" ColumnName="Дата" />
-                <ScalarProperty Name="IdПартииОтходов" ColumnName="IdПартииОтходов" />
-                <ScalarProperty Name="IdКода" ColumnName="IdКода" />
+                <ScalarProperty Name="Id_Типа" ColumnName="Id_Типа" />
+                <ScalarProperty Name="Id_Контейнера" ColumnName="Id_Контейнера" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ПартииОтходов">
-            <EntityTypeMapping TypeName="diplomModel.ПартииОтходов">
-              <MappingFragment StoreEntitySet="ПартииОтходов">
-                <ScalarProperty Name="IdПартииОтходов" ColumnName="IdПартииОтходов" />
-                <ScalarProperty Name="ДатаСоздания" ColumnName="ДатаСоздания" />
+          <EntitySetMapping Name="Собранные_отходы_клиентов">
+            <EntityTypeMapping TypeName="diplomModel.Собранные_отходы_клиентов">
+              <MappingFragment StoreEntitySet="Собранные_отходы_клиентов">
+                <ScalarProperty Name="Id_Отходов_по_коду" ColumnName="Id_Отходов_по_коду" />
                 <ScalarProperty Name="Вес" ColumnName="Вес" />
-                <ScalarProperty Name="IdТипа" ColumnName="IdТипа" />
-                <ScalarProperty Name="IdКонтейнера" ColumnName="IdКонтейнера" />
-                <ScalarProperty Name="НомерПартии" ColumnName="НомерПартии" />
+                <ScalarProperty Name="Id_Кода" ColumnName="Id_Кода" />
+                <ScalarProperty Name="Id_Типа" ColumnName="Id_Типа" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Состояния_партии_отходов">
+            <EntityTypeMapping TypeName="diplomModel.Состояния_партии_отходов">
+              <MappingFragment StoreEntitySet="Состояния_партии_отходов">
+                <ScalarProperty Name="Id_Состояния" ColumnName="Id_Состояния" />
+                <ScalarProperty Name="Наименование" ColumnName="Наименование" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
